@@ -15,6 +15,12 @@ namespace ResidenciaDesafio2.Service
         {
             _client = client;
         }
+
+        public async Task<Conversao?> Converter(ConversaoReq req)
+        {
+            return await Converter(req.MoedaOrigem, req.MoedaDestino, req.ValorMonetario);
+        }
+
         public async Task<Conversao?> Converter(string moedaOrigem, string moedaDestino, double valorMonetario)
         {
             var requestURL = String.Format("https://api.exchangerate.host/convert?from={0}&to={1}&amount={2}",
