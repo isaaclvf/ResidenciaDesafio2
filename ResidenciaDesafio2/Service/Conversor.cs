@@ -37,5 +37,23 @@ namespace ResidenciaDesafio2.Service
             var conversaoObj = JsonSerializer.Deserialize<Conversao>(json, serializeOptions);
             return conversaoObj;
         }
+
+        public static async Task<List<string>> GetMoedasValidas(HttpClient client)
+        {
+            List<string> moedasValidas = new();
+
+            var json = await client.GetStringAsync("https://api.exchangerate.host/latest");
+            var serializeOptions = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = true
+            };
+            var latestChanges = JsonSerializer.Deserialize<LatestChanges>(json, serializeOptions);
+
+            foreach (var item in latestChanges.Rates)
+                moedasValidas.Add(item.Key);
+
+            return moedasValidas;
+        }
     }
 }
