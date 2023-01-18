@@ -9,28 +9,25 @@ namespace ResidenciaDesafio2
 {
     public class Controller
     {
-        public static async void Start(List<string> moedasValidas)
+        public static async void Start(IConversor conversor)
         {
-            using HttpClient client = new();
-
+            var moedas = await conversor.GetMoedasValidas();
             bool isValid = false;
             var form = new ConversaoForm();
-            var validator = new ConversaoValidator(moedasValidas);
-            var conversor = new Conversor(client);
+            var validator = new ConversaoValidator(moedas);
 
             form.ReadData();
 
             while (!isValid)
             {
-                isValid = validator.IsValid(form.MoedaOrigem, form.MoedaDestino, form.ValorMonetario);
+                if (form.Sair) break;
 
-                if (isValid && validator.Sair)
-                    return;
+                isValid = validator.IsValid(form.MoedaOrigem, form.MoedaDestino, form.ValorMonetario);
 
                 if (isValid)
                 {
                     var req = new ConversaoReq(validator.Req.MoedaOrigem, validator.Req.MoedaDestino, validator.Req.ValorMonetario);
-                    var res = await conversor.Converter(req); // TODO: Em Program.cs funciona, mas aqui não
+                    var res = await conversor.Converter(req); // TODO: Aqui não funciona, pesquisar
                     Console.WriteLine(res);
                 }
                 else
