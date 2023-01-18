@@ -19,19 +19,10 @@ namespace ResidenciaDesafio2
 
         public ConversaoReqDTO Req { get; private set; }
         public ValidationErrors Errors { get { return errors; } }
-        public bool Sair { get; private set; }
 
-        public bool IsValid(string? moedaOrigem, string? moedaDestino, string? strValor)
+        public bool IsValid(string moedaOrigem, string moedaDestino, string strValor)
         {
             errors.Clear();
-
-            // TODO: Arrumar isso
-            Sair = false;
-            if (moedaOrigem == null)
-            {
-                Sair = true;
-                return Sair;
-            }
 
             // Moeda origem
             if (moedaOrigem.Length != 3)

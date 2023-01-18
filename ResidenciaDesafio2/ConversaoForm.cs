@@ -12,6 +12,8 @@ namespace ResidenciaDesafio2
         public string? MoedaDestino { get; private set; }
         public string? ValorMonetario { get; private set; }
 
+        public bool Sair { get; private set; } = false;
+
         public void ReadData()
         {
             ReadData(null);
@@ -34,8 +36,13 @@ namespace ResidenciaDesafio2
 
             if (validator == null || validator.Errors.HasError(Field.MOEDA_ORIGEM))
             {
-                Console.Write("Moeda origem: "); // UNDONE: Retornar aqui
-                MoedaOrigem = Console.ReadLine()?.ToUpper();
+                Console.Write("Moeda origem: ");
+                MoedaOrigem = Console.ReadLine();
+                if (MoedaOrigem == String.Empty)
+                {
+                    Sair = true;
+                    return;
+                }
             }
 
             if (validator == null || validator.Errors.HasError(Field.MOEDA_DESTINO))
