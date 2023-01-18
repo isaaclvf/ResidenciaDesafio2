@@ -43,6 +43,7 @@ namespace ResidenciaDesafio2
                     Sair = true;
                     return;
                 }
+                MoedaOrigem = MoedaOrigem?.ToUpper();
             }
 
             if (validator == null || validator.Errors.HasError(Field.MOEDA_DESTINO))
