@@ -32,6 +32,7 @@ namespace ResidenciaDesafio2
                     Console.WriteLine();
                     Console.WriteLine(res);
 
+                    isValid = false;
                     form.ReadData();
                 }
                 else
