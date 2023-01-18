@@ -35,8 +35,6 @@ namespace ResidenciaDesafio2
             // Moeda destino
             if (moedaDestino.Length != 3)
                 errors.AddError(Field.MOEDA_DESTINO, "Moeda destino deve ter exatamente 3 caracteres");
-            if (moedaDestino == moedaOrigem)
-                errors.AddError(Field.MOEDA_DESTINO, "As moedas devem ser diferentes");
             if (!moedasValidas.Contains(moedaDestino))
                 errors.AddError(Field.MOEDA_DESTINO, "Moeda inválida");
             else
