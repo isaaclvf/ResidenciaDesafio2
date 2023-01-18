@@ -9,7 +9,7 @@ namespace ResidenciaDesafio2
 {
     public class Controller
     {
-        public static async void Start(IConversor conversor)
+        public static async Task Start(IConversor conversor)
         {
             var moedas = await conversor.GetMoedasValidas();
             bool isValid = false;
@@ -27,8 +27,12 @@ namespace ResidenciaDesafio2
                 if (isValid)
                 {
                     var req = new ConversaoReq(validator.Req.MoedaOrigem, validator.Req.MoedaDestino, validator.Req.ValorMonetario);
-                    var res = await conversor.Converter(req); // TODO: Aqui não funciona, pesquisar
+                    var res = await conversor.Converter(req);
+
+                    Console.WriteLine();
                     Console.WriteLine(res);
+
+                    form.ReadData();
                 }
                 else
                 {

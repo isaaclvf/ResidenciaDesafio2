@@ -15,29 +15,4 @@ var conversor = new ConversorComExchangerate(client);
 // var resultado = await conversor.Converter("BRL", "USD", 100);
 // Console.WriteLine(resultado);
 
-// TODO: Não funciona quando extraído em um método
-// Controller.Start() 
-var moedas = await conversor.GetMoedasValidas();
-bool isValid = false;
-var form = new ConversaoForm();
-var validator = new ConversaoValidator(moedas);
-
-form.ReadData();
-
-while (!isValid)
-{
-    if (form.Sair) break;
-
-    isValid = validator.IsValid(form.MoedaOrigem, form.MoedaDestino, form.ValorMonetario);
-
-    if (isValid)
-    {
-        var req = new ConversaoReq(validator.Req.MoedaOrigem, validator.Req.MoedaDestino, validator.Req.ValorMonetario);
-        var res = await conversor.Converter(req); // Aqui funciona
-        Console.WriteLine(res);
-    }
-    else
-    {
-        form.ReadData(validator);
-    }
-}
+await Controller.Start(conversor);
